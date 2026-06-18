@@ -8,10 +8,10 @@ Built for the "Evaluation of AI/ML Skills" assignment.
 
 ## Tech Stack
 
-**Backend** : Python and Flask
-**Frontend** : HTML, CSS, Jinija2 templates + Bootstrap
-**DataBase** : Sqlite3
-**AIML API** : Gemini API
+- **Backend** : Python and Flask
+- **Frontend** : HTML, CSS, Jinija2 templates + Bootstrap
+- **DataBase** : Sqlite3
+- **AIML API** : Gemini API
 
 
 ## Features
