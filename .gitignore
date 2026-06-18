@@ -1,0 +1,16 @@
+# Environment / secrets
+.env
+
+# Database (generated at runtime, not part of source)
+*.db
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS / editor noise
+.DS_Store
+.vscode/
+.idea/

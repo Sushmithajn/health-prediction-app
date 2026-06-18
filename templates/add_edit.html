@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="card-title mb-4">{{ page_title }}</h2>
+
+                <form method="POST" action="{{ form_action }}" novalidate>
+
+                    <div class="mb-3">
+                        <label for="full_name" class="form-label">Full Name</label>
+                        <input
+                            type="text" id="full_name" name="full_name"
+                            class="form-control {% if errors.full_name %}is-invalid{% endif %}"
+                            value="{{ patient.full_name or '' }}"
+                            placeholder="e.g. Jane Doe"
+                        >
+                        {% if errors.full_name %}
+                            <div class="invalid-feedback">{{ errors.full_name }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="date_of_birth" class="form-label">Date of Birth</label>
+                            <input
+                                type="date" id="date_of_birth" name="date_of_birth"
+                                class="form-control {% if errors.date_of_birth %}is-invalid{% endif %}"
+                                value="{{ patient.date_of_birth or '' }}"
+                                max="{{ today }}"
+                            >
+                            {% if errors.date_of_birth %}
+                                <div class="invalid-feedback">{{ errors.date_of_birth }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input
+                                type="email" id="email" name="email"
+                                class="form-control {% if errors.email %}is-invalid{% endif %}"
+                                value="{{ patient.email or '' }}"
+                                placeholder="e.g. jane@example.com"
+                            >
+                            {% if errors.email %}
+                                <div class="invalid-feedback">{{ errors.email }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+                    <h6 class="text-muted mb-3">Blood Test Results</h6>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="glucose" class="form-label">Glucose (mg/dL)</label>
+                            <input
+                                type="number" step="0.1" id="glucose" name="glucose"
+                                class="form-control {% if errors.glucose %}is-invalid{% endif %}"
+                                value="{{ patient.glucose or '' }}"
+                                placeholder="e.g. 95"
+                            >
+                            {% if errors.glucose %}
+                                <div class="invalid-feedback">{{ errors.glucose }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="haemoglobin" class="form-label">Haemoglobin (g/dL)</label>
+                            <input
+                                type="number" step="0.1" id="haemoglobin" name="haemoglobin"
+                                class="form-control {% if errors.haemoglobin %}is-invalid{% endif %}"
+                                value="{{ patient.haemoglobin or '' }}"
+                                placeholder="e.g. 14.2"
+                            >
+                            {% if errors.haemoglobin %}
+                                <div class="invalid-feedback">{{ errors.haemoglobin }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="cholesterol" class="form-label">Cholesterol (mg/dL)</label>
+                            <input
+                                type="number" step="0.1" id="cholesterol" name="cholesterol"
+                                class="form-control {% if errors.cholesterol %}is-invalid{% endif %}"
+                                value="{{ patient.cholesterol or '' }}"
+                                placeholder="e.g. 180"
+                            >
+                            {% if errors.cholesterol %}
+                                <div class="invalid-feedback">{{ errors.cholesterol }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info small">
+                        The AI-generated health remark is created automatically when you
+                        save this form &mdash; there's no manual "Remarks" field to fill in.
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary">
+                            Save &amp; Generate Prediction
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
