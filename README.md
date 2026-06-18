@@ -8,12 +8,11 @@ Built for the "Evaluation of AI/ML Skills" assignment.
 
 ## Tech Stack
 
-| Layer        | Choice                          | Why |
-|--------------|----------------------------------|-----|
-| Backend      | Python + Flask                  | Lightweight, explicit routing, no hidden magic — easy to read and explain. |
-| Frontend     | HTML + Jinja2 templates + Bootstrap 5 | A classic server-rendered web app keeps the whole request/response cycle in one place, no separate build step or API layer needed. |
-| Database     | SQLite (`sqlite3`, built into Python) | Zero setup, file-based, fully persistent. No external DB server needed to run or demo the project. |
-| AI/ML API    | Anthropic Claude API (`api.anthropic.com/v1/messages`) | A real, general-purpose AI API used as a clinical-style reasoning engine over the blood test values. Falls back to a local rule-based estimate if no key is configured, so the app always works end-to-end. |
+**Backend** : Python and Flask
+**Frontend** : HTML, CSS, Jinija2 templates + Bootstrap
+**DataBase** : Sqlite3
+**AIML API** : Gemini API
+
 
 ## Features
 
