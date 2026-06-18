@@ -32,26 +32,26 @@ Built for the "Evaluation of AI/ML Skills" assignment.
 
 ```
 health-prediction-app/
-├── app.py              # Flask routes (CRUD)
-├── models.py           # SQLite schema + data access functions
-├── validators.py       # All input validation logic
-├── ai_service.py       # External AI API call + local fallback logic
+├── app.py              
+├── models.py           
+├── validators.py       
+├── ai_service.py       
 ├── templates/
-│   ├── base.html        # Shared layout, navbar, Bootstrap
-│   ├── index.html        # List of all patient records
-│   ├── add_edit.html      # Create/Edit form (shared template)
-│   └── view.html          # Single patient detail view
-├── static/css/style.css  # Minor visual polish on top of Bootstrap
+│   ├── base.html       
+│   ├── index.html       
+│   ├── add_edit.html      
+│   └── view.html          
+├── static/css/style.css  
 ├── requirements.txt
-├── .env.example          # Template for required environment variables
-└── .gitignore             # Excludes .env and the local *.db file
+├── .env         
+└── .gitignore             
 ```
 
 ## Setup & Run Locally
 
 1. **Clone the repo and enter the folder**
    ```bash
-   git clone <your-repo-url>
+   git clone <github.com/Sushmithajn/health-prediction-app>
    cd health-prediction-app
    ```
 
@@ -72,11 +72,8 @@ health-prediction-app/
    ```
    Open `.env` and paste in your own Anthropic API key:
    ```
-   ANTHROPIC_API_KEY=sk-ant-your-own-key-here
-   ```
-   Get a key at https://console.anthropic.com/. If you skip this step, the
-   app still runs fully — it will use the local fallback logic for the
-   `Remarks` field instead of a live API call.
+   GEMINI_API_KEY=sk-ant-your-own-key-here
+   ``` 
 
 5. **Run the app**
    ```bash
@@ -87,42 +84,3 @@ health-prediction-app/
 The SQLite database file (`patients.db`) is created automatically on first
 run in the project folder.
 
-## How the AI Integration Works
-
-See `ai_service.py` for the full implementation. In short:
-
-1. When a patient record is saved, `generate_health_remark()` is called
-   with the date of birth and the three blood test values.
-2. It builds a short, structured prompt describing the values against
-   typical healthy reference ranges and sends it to Claude's `/v1/messages`
-   endpoint via a plain `requests.post()` call.
-3. The model's one-line response (e.g. *"Moderate risk: elevated glucose
-   suggests possible pre-diabetes, recommend medical follow-up."*) is
-   stored directly in the `remarks` column.
-4. If the API key is missing or the request fails for any reason (network
-   issue, rate limit, etc.), the function catches the error and falls back
-   to a simple local rule-based check instead of crashing the request.
-
-This keeps the "external API call" logic fully isolated from the Flask
-routes and the database layer, so each piece can be read, tested, or
-swapped independently.
-
-## Notes on Validation
-
-All validation lives in `validators.py` and runs server-side before any
-database write:
-
-- Full name: required, letters/spaces/`.`/`'`/`-` only
-- Date of birth: required, valid date, cannot be in the future
-- Email: required, must match a standard `local@domain.tld` pattern
-- Glucose / Haemoglobin / Cholesterol: required, must be numeric, must be
-  a positive number within a realistic clinical range
-
-If validation fails, the form is re-rendered with the user's existing
-input preserved and field-specific error messages shown inline.
-
-## Disclaimer
-
-This is a learning/assignment project. The AI-generated remarks are for
-demonstration purposes only and are **not** a substitute for professional
-medical advice or diagnosis.
